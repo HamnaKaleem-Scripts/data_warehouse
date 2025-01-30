@@ -1,0 +1,140 @@
+INSERT INTO Shippers (ShipperID, CompanyName, Phone) VALUES
+(1, 'Speedy Express', '123-456-7890'),
+(2, 'United Package', '234-567-8901'),
+(3, 'Federal Shipping', '345-678-9012'),
+(4, 'Logistics Plus', '456-789-0123'),
+(5, 'Quick Ship', '567-890-1234'),
+(6, 'Ocean Freight', '678-901-2345'),
+(7, 'Global Carrier', '789-012-3456'),
+(8, 'Airway Express', '890-123-4567'),
+(9, 'Roadway Logistics', '901-234-5678'),
+(10, 'Railway Freight', '012-345-6789');
+
+INSERT INTO Customers (CustomerID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax) VALUES
+('CUST1', 'Alpha Corp', 'John Doe', 'CEO', '123 Elm St', 'New York', 'NY', '10001', 'USA', '123-456-7890', '123-456-7891'),
+('CUST2', 'Beta Inc', 'Jane Smith', 'CTO', '456 Oak St', 'Los Angeles', 'CA', '90001', 'USA', '234-567-8901', '234-567-8902'),
+('CUST3', 'Gamma Ltd', 'Robert Brown', 'CFO', '789 Pine St', 'Chicago', 'IL', '60601', 'USA', '345-678-9012', '345-678-9013'),
+('CUST4', 'Delta LLC', 'Michael White', 'COO', '101 Maple St', 'Houston', 'TX', '77001', 'USA', '456-789-0123', '456-789-0124'),
+('CUST5', 'Epsilon GmbH', 'Emily Green', 'Manager', '202 Birch St', 'San Francisco', 'CA', '94101', 'USA', '567-890-1234', '567-890-1235'),
+('CUST6', 'Zeta SA', 'David Black', 'Director', '303 Cedar St', 'Miami', 'FL', '33101', 'USA', '678-901-2345', '678-901-2346'),
+('CUST7', 'Eta Ltd', 'Susan Clark', 'VP', '404 Spruce St', 'Seattle', 'WA', '98101', 'USA', '789-012-3456', '789-012-3457'),
+('CUST8', 'Theta PLC', 'William Lee', 'Engineer', '505 Walnut St', 'Denver', 'CO', '80201', 'USA', '890-123-4567', '890-123-4568'),
+('CUST9', 'Iota Oy', 'Linda Hall', 'Analyst', '606 Ash St', 'Boston', 'MA', '02101', 'USA', '901-234-5678', '901-234-5679'),
+('CUST10', 'Kappa AB', 'James Scott', 'Specialist', '707 Chestnut St', 'Phoenix', 'AZ', '85001', 'USA', '012-345-6789', '012-345-6790');
+
+INSERT INTO Suppliers (SupplierID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, Homepage) VALUES
+(1, 'Acme Supplies', 'Alice Johnson', 'Owner', '100 Main St', 'New York', 'NY', '10001', 'USA', '123-456-7890', '123-456-7891', 'www.acme.com'),
+(2, 'Best Goods', 'Bob Martin', 'Manager', '200 Second St', 'Los Angeles', 'CA', '90001', 'USA', '234-567-8901', '234-567-8902', 'www.bestgoods.com'),
+(3, 'Quality Products', 'Charlie White', 'CEO', '300 Third St', 'Chicago', 'IL', '60601', 'USA', '345-678-9012', '345-678-9013', 'www.qualityproducts.com'),
+(4, 'Top Items', 'Diane Brown', 'Sales Rep', '400 Fourth St', 'Houston', 'TX', '77001', 'USA', '456-789-0123', '456-789-0124', 'www.topitems.com'),
+(5, 'Prime Source', 'Evan Green', 'Director', '500 Fifth St', 'San Francisco', 'CA', '94101', 'USA', '567-890-1234', '567-890-1235', 'www.primesource.com'),
+(6, 'Reliable Imports', 'Fiona Blue', 'Importer', '600 Sixth St', 'Miami', 'FL', '33101', 'USA', '678-901-2345', '678-901-2346', 'www.reliableimports.com'),
+(7, 'Global Parts', 'George Black', 'Wholesaler', '700 Seventh St', 'Seattle', 'WA', '98101', 'USA', '789-012-3456', '789-012-3457', 'www.globalparts.com'),
+(8, 'Super Supplies', 'Helen King', 'VP', '800 Eighth St', 'Denver', 'CO', '80201', 'USA', '890-123-4567', '890-123-4568', 'www.supersupplies.com'),
+(9, 'Eco-Friendly', 'Ian Brown', 'CTO', '900 Ninth St', 'Boston', 'MA', '02101', 'USA', '901-234-5678', '901-234-5679', 'www.eco-friendly.com'),
+(10, 'Tech Hub', 'John Silver', 'Technician', '1000 Tenth St', 'Phoenix', 'AZ', '85001', 'USA', '012-345-6789', '012-345-6790', 'www.techhub.com');
+
+
+INSERT INTO Categories (CategoryID, CategoryName, Description, Picture) VALUES
+(1, 'Beverages', 'Soft drinks, coffees, teas, beers, and ales', NULL),
+(2, 'Condiments', 'Sweet and savory sauces, relishes, spreads, and seasonings', NULL),
+(3, 'Confections', 'Desserts, candies, and sweet breads', NULL),
+(4, 'Dairy Products', 'Cheeses', NULL),
+(5, 'Grains/Cereals', 'Breads, crackers, pasta, and cereal', NULL),
+(6, 'Meat/Poultry', 'Prepared meats', NULL),
+(7, 'Produce', 'Dried fruit and bean curd', NULL),
+(8, 'Seafood', 'Seaweed and fish', NULL),
+(9, 'Snacks', 'Chips and similar packaged snacks', NULL),
+(10, 'Baked Goods', 'Breads, pastries, and other baked items', NULL);
+
+
+INSERT INTO Products (ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued) VALUES
+(1, 'Chai', 1, 1, '10 boxes x 20 bags', 18.00, 39, 0, 10, 0),
+(2, 'Chang', 1, 1, '24 - 12 oz bottles', 19.00, 17, 40, 25, 0),
+(3, 'Aniseed Syrup', 1, 2, '12 - 550 ml bottles', 10.00, 13, 70, 25, 0),
+(4, 'Chef Antons Cajun Seasoning', 2, 2, '48 - 6 oz jars', 22.00, 53, 0, 0, 0),
+(5, 'Chef Antons Gumbo Mix', 2, 2, '36 boxes', 21.35, 0, 0, 0, 1),
+(6, 'Grandmas Boysenberry Spread', 3, 2, '12 - 8 oz jars', 25.00, 120, 0, 25, 0),
+(7, 'Uncle Bobs Organic Dried Pears', 3, 7, '12 - 1 lb pkgs.', 30.00, 15, 0, 10, 0),
+(8, 'Northwoods Cranberry Sauce', 3, 2, '12 - 12 oz jars', 40.00, 6, 0, 0, 0),
+(9, 'Mishi Kobe Niku', 4, 6, '18 - 500 g pkgs.', 97.00, 29, 0, 0, 1),
+(10, 'Ikura', 4, 8, '12 - 200 g pkgs.', 97.00, 29, 0, 0, 1);
+
+
+
+INSERT INTO Orders (OrderID, CustomerID, EmployeeID, OrderDate, RequiredDate, ShippedDate, ShipVia, Freight, ShipName, ShipAddress, ShipCity, ShipRegion, ShipPostalCode, ShipCountry) VALUES
+(1, 'CUST1', 1, '2024-01-01', '2024-01-10', '2024-01-05', 1, 10.00, 'Alpha Corp', '123 Elm St', 'New York', 'NY', '10001', 'USA'),
+(2, 'CUST2', 2, '2024-01-02', '2024-01-12', '2024-01-07', 2, 15.50, 'Beta Inc', '456 Oak St', 'Los Angeles', 'CA', '90001', 'USA'),
+(3, 'CUST3', 3, '2024-01-03', '2024-01-15', '2024-01-10', 3, 20.00, 'Gamma Ltd', '789 Pine St', 'Chicago', 'IL', '60601', 'USA'),
+(4, 'CUST4', 4, '2024-01-04', '2024-01-20', '2024-01-15', 4, 25.75, 'Delta LLC', '101 Maple St', 'Houston', 'TX', '77001', 'USA'),
+(5, 'CUST5', 5, '2024-01-05', '2024-01-25', '2024-01-20', 5, 30.50, 'Epsilon GmbH', '202 Birch St', 'San Francisco', 'CA', '94101', 'USA'),
+(6, 'CUST6', 6, '2024-01-06', '2024-01-30', '2024-01-25', 1, 35.00, 'Zeta SA', '303 Cedar St', 'Miami', 'FL', '33101', 'USA'),
+(7, 'CUST7', 7, '2024-01-07', '2024-02-01', '2024-01-28', 2, 40.25, 'Eta Ltd', '404 Spruce St', 'Seattle', 'WA', '98101', 'USA'),
+(8, 'CUST8', 8, '2024-01-08', '2024-02-05', '2024-02-01', 3, 45.75, 'Theta PLC', '505 Walnut St', 'Denver', 'CO', '80201', 'USA'),
+(9, 'CUST9', 9, '2024-01-09', '2024-02-10', '2024-02-05', 4, 50.00, 'Iota Oy', '606 Ash St', 'Boston', 'MA', '02101', 'USA'),
+(10, 'CUST10', 10, '2024-01-10', '2024-02-15', '2024-02-10', 5, 55.25, 'Kappa AB', '707 Chestnut St', 'Phoenix', 'AZ', '85001', 'USA');
+
+INSERT INTO OrderDetails (OrderID, ProductID, UnitPrice, Quantity, Discount) VALUES
+(1, 1, 18.00, 5, 0.00),
+(1, 2, 19.00, 3, 0.10),
+(2, 3, 10.00, 10, 0.05),
+(2, 4, 22.00, 2, 0.00),
+(3, 5, 21.35, 4, 0.15),
+(3, 6, 25.00, 1, 0.10),
+(4, 7, 30.00, 7, 0.00),
+(4, 8, 40.00, 3, 0.05),
+(5, 9, 97.00, 2, 0.20),
+(5, 10, 50.00, 6, 0.10);
+
+
+INSERT INTO Employees (EmployeeID, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Photo, Notes, ReportsTo, PhotoPath) VALUES
+(1, 'Smith', 'John', 'Sales Manager', 'Mr.', '1980-05-15', '2020-06-01', '100 Main St', 'New York', 'NY', '10001', 'USA', '123-456-7890', '100', NULL, 'Top performer', NULL, 'photos/john_smith.jpg'),
+(2, 'Johnson', 'Emily', 'Accountant', 'Ms.', '1985-07-22', '2021-07-15', '200 Second St', 'Los Angeles', 'CA', '90001', 'USA', '234-567-8901', '101', NULL, 'Experienced accountant', 1, 'photos/emily_johnson.jpg'),
+(3, 'Williams', 'Michael', 'IT Support', 'Mr.', '1990-08-30', '2019-08-15', '300 Third St', 'Chicago', 'IL', '60601', 'USA', '345-678-9012', '102', NULL, 'Tech expert', 1, 'photos/michael_williams.jpg'),
+(4, 'Jones', 'Sarah', 'Marketing Specialist', 'Ms.', '1992-09-10', '2022-09-01', '400 Fourth St', 'Houston', 'TX', '77001', 'USA', '456-789-0123', '103', NULL, 'Creative marketer', 1, 'photos/sarah_jones.jpg'),
+(5, 'Brown', 'David', 'HR Manager', 'Mr.', '1987-10-25', '2018-10-10', '500 Fifth St', 'San Francisco', 'CA', '94101', 'USA', '567-890-1234', '104', NULL, 'HR expert', 2, 'photos/david_brown.jpg'),
+(6, 'Davis', 'Laura', 'Customer Service', 'Ms.', '1989-11-05', '2020-11-15', '600 Sixth St', 'Miami', 'FL', '33101', 'USA', '678-901-2345', '105', NULL, 'Customer-focused', 2, 'photos/laura_davis.jpg'),
+(7, 'Miller', 'Chris', 'Product Manager', 'Mr.', '1988-12-15', '2021-12-01', '700 Seventh St', 'Seattle', 'WA', '98101', 'USA', '789-012-3456', '106', NULL, 'Product expert', 3, 'photos/chris_miller.jpg'),
+(8, 'Wilson', 'Amanda', 'Sales Support', 'Ms.', '1993-01-20', '2022-01-15', '800 Eighth St', 'Denver', 'CO', '80201', 'USA', '890-123-4567', '107', NULL, 'Sales support', 3, 'photos/amanda_wilson.jpg'),
+(9, 'Moore', 'James', 'IT Manager', 'Mr.', '1982-02-28', '2019-02-01', '900 Ninth St', 'Boston', 'MA', '02101', 'USA', '901-234-5678', '108', NULL, 'IT specialist', 4, 'photos/james_moore.jpg'),
+(10, 'Taylor', 'Sophia', 'Finance Analyst', 'Ms.', '1991-03-15', '2020-03-10', '1000 Tenth St', 'Phoenix', 'AZ', '85001', 'USA', '012-345-6789', '109', NULL, 'Finance expert', 4, 'photos/sophia_taylor.jpg');
+
+
+INSERT INTO Regions (RegionID, RegionDescription) VALUES
+(1, 'North America'),
+(2, 'Europe'),
+(3, 'Asia'),
+(4, 'South America'),
+(5, 'Africa'),
+(6, 'Oceania'),
+(7, 'Middle East'),
+(8, 'Caribbean'),
+(9, 'Central America'),
+(10, 'Antarctica');
+
+INSERT INTO Territories (TerritoryID, TerritoryDescription, RegionID) VALUES
+('TERR1', 'New York Area', 1),
+('TERR2', 'California Area', 1),
+('TERR3', 'Chicago Area', 1),
+('TERR4', 'Houston Area', 1),
+('TERR5', 'San Francisco Area', 1),
+('TERR6', 'Miami Area', 1),
+('TERR7', 'Seattle Area', 1),
+('TERR8', 'Denver Area', 1),
+('TERR9', 'Boston Area', 1),
+('TERR10', 'Phoenix Area', 1);
+
+
+INSERT INTO EmployeeTerritories (EmployeeID, TerritoryID) VALUES
+(1, 'TERR1'),
+(1, 'TERR2'),
+(2, 'TERR3'),
+(2, 'TERR4'),
+(3, 'TERR5'),
+(3, 'TERR6'),
+(4, 'TERR7'),
+(4, 'TERR8'),
+(5, 'TERR9'),
+(5, 'TERR10');
+
+
