@@ -1,0 +1,202 @@
+question 1
+SELECT 
+    YEAR(O.OrderDate) AS SalesYear,
+    MONTH(O.OrderDate) AS SalesMonth,
+    C.Country AS CustomerState,
+    SUM(OD.Quantity * P.Price) AS MonthlySales,
+    LAG(SUM(OD.Quantity * P.Price)) OVER (PARTITION BY C.Country ORDER BY YEAR(O.OrderDate), MONTH(O.OrderDate)) AS PreviousYearSales
+FROM 
+    Orders O
+    JOIN Orderdetails OD ON O.OrderID = OD.OrderID
+    JOIN Products P ON OD.ProductID = P.ProductID
+    JOIN Customers C ON O.CustomerID = C.CustomerID
+GROUP BY 
+    YEAR(O.OrderDate), MONTH(O.OrderDate), C.Country;
+
+------------------------------------------------------------------------------
+question 2:
+
+SELECT 
+    YEAR(O.OrderDate) AS SalesYear,
+    MONTH(O.OrderDate) AS SalesMonth,
+    P.ProductName,
+    SUM(OD.Quantity * P.Price) AS MonthlySales,
+    LAG(SUM(OD.Quantity * P.Price)) OVER (PARTITION BY P.ProductID ORDER BY YEAR(O.OrderDate), MONTH(O.OrderDate)) AS PreviousMonthSales,
+    (SUM(OD.Quantity * P.Price) - LAG(SUM(OD.Quantity * P.Price)) OVER (PARTITION BY P.ProductID ORDER BY YEAR(O.OrderDate), MONTH(O.OrderDate))) AS SalesGrowth
+FROM 
+    Orders O
+    JOIN Order_details OD ON O.OrderID = OD.OrderID
+    JOIN Products P ON OD.ProductID = P.ProductID
+GROUP BY 
+    YEAR(O.OrderDate), MONTH(O.OrderDate), P.ProductID, P.ProductName;
+
+------------------------------------------------------------------------------
+question3:
+
+SELECT TOP 3
+    E.EmployeeID,
+    E.FirstName,
+    E.LastName,
+    SUM(OD.Quantity * P.Price) AS TotalSales
+FROM 
+    Orders O
+    JOIN Order_details OD ON O.OrderID = OD.OrderID
+    JOIN Employees E ON O.EmployeeID = E.EmployeeID
+    JOIN Products P ON OD.ProductID = P.ProductID
+GROUP BY 
+    E.EmployeeID, E.FirstName, E.LastName
+ORDER BY 
+    TotalSales DESC;
+
+------------------------------------------------------------------------------
+question4:
+
+SELECT 
+    P.ProductID,
+    E.EmployeeID,
+    E.FirstName,
+    E.LastName,
+    SUM(OD.Quantity * P.Price) AS TotalSales,
+    YEAR(O.OrderDate) AS SalesYear
+FROM 
+    Orders O
+    JOIN Order_details OD ON O.OrderID = OD.OrderID
+    JOIN Employees E ON O.EmployeeID = E.EmployeeID
+    JOIN Products P ON OD.ProductID = P.ProductID
+GROUP BY 
+    P.ProductID, E.EmployeeID, E.FirstName, E.LastName, YEAR(O.OrderDate)
+ORDER BY 
+    SalesYear, P.ProductID, TotalSales DESC;
+
+------------------------------------------------------------------------------
+question 5:
+WITH CountrySales AS (
+    SELECT 
+        C.Country,
+        SUM(OD.Quantity * P.Price) AS TotalSales
+    FROM 
+        Orders O
+        JOIN Order_details OD ON O.OrderID = OD.OrderID
+        JOIN Customers C ON O.CustomerID = C.CustomerID
+        JOIN Products P ON OD.ProductID = P.ProductID
+    GROUP BY 
+        C.Country
+),
+TotalSales AS (
+    SELECT SUM(TotalSales) AS OverallSales FROM CountrySales
+),
+CumulativeSales AS (
+    SELECT 
+        Country,
+        TotalSales,
+        SUM(TotalSales) OVER (ORDER BY TotalSales DESC) AS CumulativeTotal
+    FROM 
+        CountrySales
+)
+SELECT 
+    Country
+FROM 
+    CumulativeSales, TotalSales
+WHERE 
+    CumulativeTotal <= (OverallSales * 0.5);
+
+------------------------------------------------------------------------------
+question 6:
+
+SELECT 
+    E.EmployeeID,
+    E.FirstName,
+    E.LastName,
+    YEAR(O.OrderDate) AS SalesYear,
+    SUM(OD.Quantity * P.Price) AS TotalSales,
+    AVG(SUM(OD.Quantity * P.Price)) OVER (PARTITION BY E.EmployeeID, YEAR(O.OrderDate)) AS AvgMonthlySales
+FROM 
+    Orders O
+    JOIN Order_details OD ON O.OrderID = OD.OrderID
+    JOIN Employees E ON O.EmployeeID = E.EmployeeID
+    JOIN Products P ON OD.ProductID = P.ProductID
+GROUP BY 
+    E.EmployeeID, E.FirstName, E.LastName, YEAR(O.OrderDate);
+
+
+------------------------------------------------------------------------------
+question 7:
+
+SELECT 
+    P.ProductID,
+    MONTH(O.OrderDate) AS SalesMonth,
+    YEAR(O.OrderDate) AS SalesYear,
+    SUM(OD.Quantity * P.Price) AS TotalSales
+FROM 
+    Orders O
+    JOIN Order_details OD ON O.OrderID = OD.OrderID
+    JOIN Products P ON OD.ProductID = P.ProductID
+GROUP BY 
+    P.ProductID, MONTH(O.OrderDate), YEAR(O.OrderDate);
+------------------------------------------------------------------------------
+question 8 :
+SELECT 
+    C.CategoryID,
+    C.CategoryName,
+    MONTH(O.OrderDate) AS SalesMonth,
+    YEAR(O.OrderDate) AS SalesYear,
+    SUM(OD.Quantity * P.Price) AS TotalSales
+FROM 
+    Orders O
+    JOIN Order_details OD ON O.OrderID = OD.OrderID
+    JOIN Products P ON OD.ProductID = P.ProductID
+    JOIN Categories C ON P.CategoryID = C.CategoryID
+GROUP BY 
+    C.CategoryID, C.CategoryName, MONTH(O.OrderDate), YEAR(O.OrderDate)
+ORDER BY 
+    SalesYear, SalesMonth, C.CategoryID;
+
+
+------------------------------------------------------------------------------
+question 9:
+WITH MonthlySales AS (
+    SELECT 
+        C.CategoryID,
+        C.CategoryName,
+        MONTH(O.OrderDate) AS SalesMonth,
+        YEAR(O.OrderDate) AS SalesYear,
+        SUM(OD.Quantity * P.Price) AS TotalSales
+    FROM 
+        Orders O
+        JOIN Order_details OD ON O.OrderID = OD.OrderID
+        JOIN Products P ON OD.ProductID = P.ProductID
+        JOIN Categories C ON P.CategoryID = C.CategoryID
+    GROUP BY 
+        C.CategoryID, C.CategoryName, MONTH(O.OrderDate), YEAR(O.OrderDate)
+)
+SELECT 
+    CategoryID,
+    CategoryName,
+    SalesMonth,
+    SalesYear,
+    AVG(TotalSales) OVER (PARTITION BY CategoryID ORDER BY SalesYear, SalesMonth ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS MovingAverageSales
+FROM 
+    MonthlySales;
+
+
+------------------------------------------------------------------------------
+question10 :
+
+SELECT 
+    E.EmployeeID,
+    E.FirstName,
+    E.LastName,
+    SUM(CASE 
+        WHEN E.EmployeeID = 18 THEN OD.Quantity * P.Price 
+        ELSE 0 
+    END) AS PersonalSales,
+    SUM(OD.Quantity * P.Price) AS TotalSalesByEmployeeAndSubordinates
+FROM 
+    Orders O
+    JOIN Order_details OD ON O.OrderID = OD.OrderID
+    JOIN Products P ON OD.ProductID = P.ProductID
+    JOIN Employees E ON O.EmployeeID = E.EmployeeID
+WHERE 
+    YEAR(O.OrderDate) = 1997
+GROUP BY 
+    E.EmployeeID, E.FirstName, E.LastName;
